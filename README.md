@@ -28,7 +28,9 @@ O dashboard apresenta uma visão geral do negócio através dos seguintes indica
 * Total vencido
 * Total de clientes
 * Últimos clientes cadastrados
+### Tela do Dashboard
 
+![Dashboard do SGN](docs/dashboard.png)
 ## 🧩 Módulos
 
 ### Clientes
