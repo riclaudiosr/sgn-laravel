@@ -43,8 +43,10 @@ Permite cadastrar, visualizar, editar e gerenciar os clientes do sistema.
 ### Serviços
 Permite registrar serviços vinculados aos clientes, incluindo descrição, valor, data, situação e status.
 
-### Contas a receber
+#### Tela de Serviços
+![Tela de Serviços do SGN](docs/Servicos.png)
 
+### Contas a receber
 Permite controlar cobranças, valores, vencimentos, pagamentos e situação das contas.
 
 #### Tela de Contas a Receber
@@ -52,9 +54,10 @@ Permite controlar cobranças, valores, vencimentos, pagamentos e situação das 
 ![Tela de Contas a Receber do SGN](docs/Contas_a_receber.png)
 
 ### Relatórios
-
-
 Permite consultar as informações financeiras utilizando filtros por período e status das cobranças.
+
+#### Tela de Relatórios
+![Tela de Relatórios do SGN](docs/Relatorios.png)
 
 ## 🛠️ Tecnologias
 
