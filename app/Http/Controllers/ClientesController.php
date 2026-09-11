@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+
 class ClientesController extends Controller
 {
     public function index()
@@ -74,5 +75,18 @@ class ClientesController extends Controller
         $cliente->delete();
         return redirect('/clientes')
             ->with('sucesso', 'Cliente excluído com sucesso!');
+    }
+    public function toggle(Cliente $cliente)
+    {
+        $cliente->update([
+            'ativo' => !$cliente->ativo
+        ]);
+
+        $mensagem = $cliente->ativo
+            ? 'Cliente reativado com sucesso!'
+            : 'Cliente desativado com sucesso!';
+
+        return redirect('/clientes')
+            ->with('sucesso', $mensagem);
     }
 }

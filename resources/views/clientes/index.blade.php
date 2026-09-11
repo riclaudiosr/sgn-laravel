@@ -6,104 +6,157 @@
 
 <div class="container">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
         <div>
-            <h2>Clientes</h2>
-            <p class="mb-0">Lista de clientes do Sistema de Gestão de Negócios.</p>
+            <h2 class="fw-bold mb-1">Clientes</h2>
+
+            <p class="text-muted mb-0">
+                Gerencie os clientes cadastrados no sistema.
+            </p>
         </div>
 
         <a href="/clientes/novo" class="btn btn-primary">
-            Novo cliente
+            + Novo cliente
         </a>
+
     </div>
 
     @if (session('sucesso'))
-        <div class="alert alert-success">
-            {{ session('sucesso') }}
-        </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+        {{ session('sucesso') }}
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Fechar">
+        </button>
+
+    </div>
     @endif
 
-    <div class="card shadow-sm">
-        <div class="card-body">
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white border-0 py-3">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <strong>Clientes cadastrados</strong>
+
+                <span class="badge bg-primary">
+                    {{ $clientes->count() }}
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card-body p-0">
 
             <div class="table-responsive">
+
                 <table class="table table-hover align-middle mb-0">
 
-                    <thead>
+                    <thead class="table-light">
+
                         <tr>
-                            <th>Nome</th>
+                            <th class="ps-4">Nome</th>
                             <th>E-mail</th>
                             <th>Status</th>
-                            <th class="text-end">Ações</th>
+                            <th class="text-end pe-4">Ações</th>
                         </tr>
+
                     </thead>
 
                     <tbody>
 
                         @forelse ($clientes as $cliente)
 
-                            <tr>
-                                <td>{{ $cliente->nome }}</td>
+                        <tr>
 
-                                <td>{{ $cliente->email }}</td>
+                            <td class="ps-4 fw-semibold">
+                                {{ $cliente->nome }}
+                            </td>
 
-                                <td>
-                                    @if ($cliente->ativo)
-                                        <span class="badge bg-success">
-                                            Ativo
-                                        </span>
-                                    @else
-                                        <span class="badge bg-secondary">
-                                            Inativo
-                                        </span>
-                                    @endif
-                                </td>
+                            <td>
+                                {{ $cliente->email }}
+                            </td>
 
-                                <td class="text-end">
+                            <td>
 
-                                    <a
-                                        href="/clientes/{{ $cliente->id }}/editar"
-                                        class="btn btn-warning btn-sm"
-                                    >
-                                        Editar
-                                    </a>
+                                @if ($cliente->ativo)
 
-                                    <form
-                                        action="/clientes/{{ $cliente->id }}"
-                                        method="POST"
-                                        class="d-inline"
-                                    >
-                                        @csrf
-                                        @method('DELETE')
+                                <span class="badge bg-success">
+                                    Ativo
+                                </span>
 
-                                        <button
-                                            type="submit"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Tem certeza que deseja excluir este cliente?')"
-                                        >
-                                            Excluir
-                                        </button>
-                                    </form>
+                                @else
 
-                                </td>
-                            </tr>
+                                <span class="badge bg-secondary">
+                                    Inativo
+                                </span>
+
+                                @endif
+
+                            </td>
+
+                            <td class="text-end pe-4">
+
+                                <a
+                                    href="/clientes/{{ $cliente->id }}/editar"
+                                    class="btn btn-outline-primary btn-sm me-1">
+                                    Editar
+                                </a>
+
+                                <form
+                                    action="{{ route('clientes.toggle', $cliente) }}"
+                                    method="POST"
+                                    class="d-inline">
+
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm {{ $cliente->ativo ? 'btn-outline-danger' : 'btn-outline-success' }}"
+                                        onclick="return confirm('Deseja {{ $cliente->ativo ? 'desativar' : 'reativar' }} este cliente?')">
+
+                                        {{ $cliente->ativo ? 'Desativar' : 'Reativar' }}
+
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
 
                         @empty
 
-                            <tr>
-                                <td colspan="4" class="text-center text-muted">
-                                    Nenhum cliente cadastrado.
-                                </td>
-                            </tr>
+                        <tr>
+
+                            <td
+                                colspan="4"
+                                class="text-center text-muted py-5">
+
+                                Nenhum cliente cadastrado.
+
+                            </td>
+
+                        </tr>
 
                         @endforelse
 
                     </tbody>
 
                 </table>
+
             </div>
 
         </div>
+
     </div>
 
 </div>
